@@ -1,5 +1,5 @@
 //Displaying Welcome message on master branch
-//UC2 Calculate Daily Wage of Employee
+//UC3 Calculate Daily wage in terms of Part Time and Full Time Wage of Employee
 
 package employeewagecomputation;
 
@@ -11,15 +11,25 @@ public class EmployeeWageComputation {
         System.out.println("Welcome to Employee Wage Computation Program");
         int wagePerHr = 20;
         int fullDayHr = 8;
+        int halfDayHr = 4;
         int dailyWage;
 
         if(attendance()) {
-            System.out.println("Employee is Present");
-            dailyWage = wagePerHr * fullDayHr;
-            System.out.println("\nDaily wage of Employee is: "+ dailyWage);
+//            System.out.println("Employee is Present");
+            if (fullOrPartTime()==1){
+                dailyWage = wagePerHr * fullDayHr;
+                System.out.println("Employee present for Full-Day and wage is: $"+dailyWage);
+            }
+            else {
+                dailyWage = wagePerHr * halfDayHr;
+                System.out.println("Employee present for Half-Day and wage is: $"+dailyWage);
+            }
         }
         else
             System.out.println("Employee is Absent");
+    }
+    public static int fullOrPartTime(){
+        return new Random().nextInt(2);
     }
     public static boolean attendance(){
         return new Random().nextBoolean();
