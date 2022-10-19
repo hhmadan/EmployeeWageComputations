@@ -20,7 +20,6 @@ public class EmployeeWageComputation {
         }
         else
             System.out.println("Employee is Absent");
-
     }
     public static boolean attendance(){
         return new Random().nextBoolean();
