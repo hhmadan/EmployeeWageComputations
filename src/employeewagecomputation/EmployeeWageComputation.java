@@ -1,5 +1,5 @@
-//Displaying Welcome message on master branch
-//UC4 Calculate wages for a month
+//UC6 Calculate Wages till a condition of total working hours or days is reached for a month
+// Assume 100 hours and 20 days
 
 package employeewagecomputation;
 
@@ -8,30 +8,36 @@ import java.util.Random;
 public class EmployeeWageComputation {
     public static void main(String args[])
     {
-    final int wagePerHr = 20;
-    final int workingDays = 20;
 
-    int totalWage = 0;
-        for (int day = 1; day <= workingDays; day++) {
+        final int wagePerHr = 20;
+        final int maxWorkingDays = 20;
+        final int maxWorkingHrs = 100;
+
+        int totalWage = 0;
+        int workingHrs;
+        System.out.printf("%5s   | %5s|   %5s   |  %5s\n", "DAY#", "WORKING HRS", "WAGE", "TOTAL WORKING HRS");
+        for (int day = 1, totalWorkingHrs = 0; day <= maxWorkingDays
+                && totalWorkingHrs < maxWorkingHrs; day++, totalWorkingHrs += workingHrs)
+        {
+
             int empType = new Random().nextInt(3)+1;
-            int workingHours =0;
             switch (empType)
             {
-                case 1 :
-                    System.out.println("Employee is Present for Full-Day");
-                    workingHours = 8;
+                case 1:
+                    workingHrs = 8;
                     break;
                 case 2:
-                    System.out.println("Employee is Present for Half-Day");
-                    workingHours = 4;
+                    workingHrs = 4;
                     break;
                 default:
-                    System.out.println("Employee is ABSENT");
+                    workingHrs = 0;
+                    break;
             }
-            int wage = workingHours * wagePerHr;
-            System.out.println("Day " + day + " wage is: $" + wage);
+            int wage = workingHrs * wagePerHr;
             totalWage += wage;
+            System.out.printf("%5d   |  %5d     |   %5d   |   %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
+
         }
-    System.out.println("\nTOTAL WAGE FOR A MONTH IS: $" + totalWage);
+        System.out.println("Total wage for a month is $" + totalWage);
     }
 }
