@@ -1,43 +1,52 @@
-//UC6 Calculate Wages till a condition of total working hours or days is reached for a month
-// Assume 100 hours and 20 days
+//UC7 Refactor code using Class Methods and Variables
 
 package employeewagecomputation;
 
 import java.util.Random;
 
 public class EmployeeWageComputation {
-    public static void main(String args[])
-    {
+        static int wagePerHr = 20;
+        static int fullDayHr = 8;
+        static int halfDayHr = 4;
+        static int totalEmpHrs=0;
+        static int totalWorkingDays;
+        static int maxWorkingHrs = 100;
+        static int maxWorkingDays = 20;
+        static int totalSalary = 0;
+        public static void main(String[] args) {
+            int empHrs =0, salary =0;
+            System.out.println("Welcome to Employee Wage Computation Program");
 
-        final int wagePerHr = 20;
-        final int maxWorkingDays = 20;
-        final int maxWorkingHrs = 100;
-
-        int totalWage = 0;
-        int workingHrs;
-        System.out.printf("%5s   | %5s|   %5s   |  %5s\n", "DAY#", "WORKING HRS", "WAGE", "TOTAL WORKING HRS");
-        for (int day = 1, totalWorkingHrs = 0; day <= maxWorkingDays
-                && totalWorkingHrs < maxWorkingHrs; day++, totalWorkingHrs += workingHrs)
-        {
-
-            int empType = new Random().nextInt(3)+1;
-            switch (empType)
-            {
-                case 1:
-                    workingHrs = 8;
-                    break;
-                case 2:
-                    workingHrs = 4;
-                    break;
-                default:
-                    workingHrs = 0;
-                    break;
+            while (totalEmpHrs <= maxWorkingHrs && totalWorkingDays <= maxWorkingDays) {
+                totalWorkingDays++;
+                if (attendance()) {
+                    switch (fullOrPartTime()) {
+                        case 1:
+                            System.out.println("Employee present for Half-Day");
+                            empHrs = halfDayHr;
+                            salary = empHrs * wagePerHr;
+                            break;
+                        case 2:
+                            System.out.println("Employee present for Full-Day");
+                            empHrs = fullDayHr;
+                            salary = empHrs * wagePerHr;
+                            break;
+                        default:
+                    }
+                    totalEmpHrs += empHrs;
+                    totalSalary += salary;
+                } else{
+                    System.out.println("Employee is Absent");}
             }
-            int wage = workingHrs * wagePerHr;
-            totalWage += wage;
-            System.out.printf("%5d   |  %5d     |   %5d   |   %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
 
+            System.out.println("Total Salary is: $"+totalSalary);
         }
-        System.out.println("Total wage for a month is $" + totalWage);
-    }
+
+            public static int fullOrPartTime(){
+            return new Random().nextInt(2)+1;
+        }
+            public static boolean attendance(){
+            return new Random().nextBoolean();
+            }
+
 }
