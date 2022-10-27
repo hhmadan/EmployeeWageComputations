@@ -3,38 +3,35 @@ package employeewagecomputation;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class EmpWageBuilder {
-
-
-
-
-    public void saveCompanies(){
-        ArrayList<EmpWageBuilder> al = new ArrayList<>();
-
-
+public class EmpWageBuilder implements EmpWageCalculations {
+    public final int fullDayHr = 8;
+    public final int halfDayHr = 4;
+    ArrayList<CompanyEmpWage> al;
+    public EmpWageBuilder(){
+        this.al =  new ArrayList<>();
     }
-    public String getCompanyName() {
-        return companyName;
+    public void getMonthlyWage(){
+        for(CompanyEmpWage companyEmpWage:this.al){
+            companyEmpWage.setTotalSalary(this.getMonthlyWage(companyEmpWage));
+            System.out.println(companyEmpWage);
+        }
     }
-
-
-    public int getMonthlyWage() {
+    public int getMonthlyWage(CompanyEmpWage companyEmpWage) {
         int salary = 0, totalSalary=0;
         int workingHours = 0, workingDays = 0;
-        while (workingDays <= workingDaysInMonth && workingHours <= workingHoursInMonth) {
+        while (workingDays <= companyEmpWage.workingDaysInMonth && workingHours <= companyEmpWage.workingHoursInMonth) {
             workingDays++;
             if (attendance()==1) {
                 switch (fullOrPartTime()) {
                     case 1:
                         workingHours = halfDayHr;
-                        salary = workingHours * wagePerHr;
+                        salary = workingHours * companyEmpWage.wagePerHr;
                         System.out.println("DAY "+workingDays+"==> Employee present for Half-Day and wage is: $"+salary);
                         break;
                     case 2:
                         workingHours = fullDayHr;
-                        salary = workingHours * wagePerHr;
+                        salary = workingHours * companyEmpWage.wagePerHr;
                         System.out.println("DAY "+workingDays+"==> Employee present for Full-Day and wage is: $"+salary);
-
                         break;
                     default:
                 }
@@ -53,4 +50,9 @@ public class EmpWageBuilder {
     public static int fullOrPartTime(){
         return new Random().nextInt(2)+1;
     }
+    public void saveCompanies(String companyName, int wagePerHr, int workingDaysInMonth, int workingHoursInMonth){
+        CompanyEmpWage companyEmpWage = new CompanyEmpWage(companyName, wagePerHr, workingDaysInMonth, workingHoursInMonth);
+        this.al.add(companyEmpWage);
+    }
+
 }
