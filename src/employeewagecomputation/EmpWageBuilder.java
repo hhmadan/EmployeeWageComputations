@@ -1,25 +1,22 @@
 package employeewagecomputation;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class EmpWageBuilder {
-    private static final int fullDayHr = 8;
-    private static final int halfDayHr = 4;
-    private final String companyName;
-    private final int wagePerHr;
-    private final int workingDaysInMonth;
-    private final int workingHoursInMonth;
 
-    public EmpWageBuilder(String companyName, int wagePerHr, int workingDaysInMonth, int workingHoursInMonth) {
-        this.companyName = companyName;
-        this.wagePerHr = wagePerHr;
-        this.workingDaysInMonth = workingDaysInMonth;
-        this.workingHoursInMonth = workingHoursInMonth;
+
+
+
+    public void saveCompanies(){
+        ArrayList<EmpWageBuilder> al = new ArrayList<>();
+
+
     }
-
     public String getCompanyName() {
         return companyName;
     }
+
 
     public int getMonthlyWage() {
         int salary = 0, totalSalary=0;
