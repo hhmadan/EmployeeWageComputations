@@ -1,14 +1,17 @@
 package employeewagecomputation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class EmpWageBuilder implements EmpWageCalculations {
     public final int fullDayHr = 8;
     public final int halfDayHr = 4;
     ArrayList<CompanyEmpWage> al;
+    HashMap<String,Integer> totalEmpSalary;
     public EmpWageBuilder(){
         this.al =  new ArrayList<>();
+        this.totalEmpSalary = new HashMap<>();
     }
     public void getMonthlyWage(){
         for(CompanyEmpWage companyEmpWage:this.al){
@@ -39,7 +42,7 @@ public class EmpWageBuilder implements EmpWageCalculations {
             } else{
                 System.out.println("DAY "+workingDays+"==> Employee is Absent and wage is: $0");}
         }
-
+        totalEmpSalary.put(companyEmpWage.companyName,totalSalary);
         //System.out.println("TOTAL SALARY IS: $"+totalSalary);
         return totalSalary;
     }
@@ -50,9 +53,15 @@ public class EmpWageBuilder implements EmpWageCalculations {
     public static int fullOrPartTime(){
         return new Random().nextInt(2)+1;
     }
+
+    public void displayDetails(){
+        for (String companyName:totalEmpSalary.keySet()){
+            System.out.println(companyName+"==>"+totalEmpSalary.get(companyName));
+        }
+    }
     public void saveCompanies(String companyName, int wagePerHr, int workingDaysInMonth, int workingHoursInMonth){
         CompanyEmpWage companyEmpWage = new CompanyEmpWage(companyName, wagePerHr, workingDaysInMonth, workingHoursInMonth);
-        this.al.add(companyEmpWage);
+        al.add(companyEmpWage);
+        totalEmpSalary.put(companyName,0);
     }
-
 }
