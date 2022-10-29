@@ -54,14 +54,12 @@ public class EmpWageBuilder implements EmpWageCalculations {
         return new Random().nextInt(2)+1;
     }
 
-    public void displayDetails(){
-        for (String companyName:totalEmpSalary.keySet()){
-            System.out.println(companyName+"==>"+totalEmpSalary.get(companyName));
-        }
-    }
     public void saveCompanies(String companyName, int wagePerHr, int workingDaysInMonth, int workingHoursInMonth){
         CompanyEmpWage companyEmpWage = new CompanyEmpWage(companyName, wagePerHr, workingDaysInMonth, workingHoursInMonth);
         al.add(companyEmpWage);
         totalEmpSalary.put(companyName,0);
+    }
+    public int getQueried(String companyName){
+        return totalEmpSalary.get(companyName);
     }
 }
